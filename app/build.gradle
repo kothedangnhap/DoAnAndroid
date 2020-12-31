@@ -34,4 +34,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    implementation 'info.hoang8f:fbutton:1.0.5'
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 }
