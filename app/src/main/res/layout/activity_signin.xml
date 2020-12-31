@@ -19,7 +19,7 @@
             android:id="@+id/editPhone"
             android:hint="@string/phone_number1"
             android:textColorHint="@android:color/white"
-            android:text="@string/_09881233441"
+            android:text="@string/_0988123344"
             android:textColor="@android:color/white"
             android:textSize="34sp"
             android:inputType="phone"
