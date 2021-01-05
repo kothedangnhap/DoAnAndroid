@@ -9,7 +9,7 @@
 
     <group android:id="@+id/category_group">
         <item
-            android:id="@+id/nav_menu"
+            android:id="@+id/nav_category"
             android:icon="@drawable/ic_restaurant_menu_black_24dp"
             android:title="@string/menu_menu" />
     </group>

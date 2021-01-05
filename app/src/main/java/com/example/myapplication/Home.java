@@ -24,6 +24,14 @@ public class Home extends AppCompatActivity {
                     case R.id.nav_cart:
                         Intent cartDetail = new Intent(Home.this, CartActivity.class);
                         startActivity(cartDetail);
+                        break;
+
+                    case  R.id.nav_sign_out:
+                        /// code for signin
+                        break;
+                    case R.id.nav_category:
+                        //code for category
+                        break;
                     default:
                         break;
                 }
