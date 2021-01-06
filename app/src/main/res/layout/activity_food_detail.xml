@@ -46,15 +46,114 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/btnCart"
-    android:src="@drawable/ic_shopping_cart_black_24dp"
-    android:backgroundTint="@color/colorWhite"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:elevation="6dp"
-    app:pressedTranslationZ="12dp"
-    app:layout_anchor="@id/app_bar_layout"
-    app:layout_anchorGravity="bottom|right|end"
-    app:useCompatPadding="true"/>
+        android:id="@+id/btnCart"
+        android:src="@drawable/ic_shopping_cart_black_24dp"
+        android:backgroundTint="@color/colorWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|right|end"
+        app:useCompatPadding="true"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedSV"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
+                >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/food_name"
+                        android:layout_marginTop="8dp"
+                        android:padding="12dp"
+                        android:text="Food Name"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:id="@+id/layout_price"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/ic_baseline_attach_money_24"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/food_price"
+                            android:text="10 , 000"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_width="0dp"
+                            android:layout_weight="9"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/number_button"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginBottom="10dp"
+                        app:textSize="8sp"
+                        app:backGroundColor="@color/btnSignActive"
+                        app:initialNumber="1"
+                        app:finalNumber="20"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/food_description"
+                    android:layout_marginTop="12dp"
+                    android:lineSpacingMultiplier="1.5"
+                    android:padding="12dp"
+                    android:text="Description"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
