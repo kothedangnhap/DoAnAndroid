@@ -1,10 +1,12 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +25,10 @@ public class CartFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn.setText("Ok ne");
+
+                Toast.makeText(getContext(), "please waiting...", Toast.LENGTH_SHORT).show();
+                Intent Order = new Intent(getContext(), com.example.myapplication.OrderActivity.class);
+                startActivity(Order);
             }
         });
         return view;
