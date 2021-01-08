@@ -60,6 +60,7 @@
         android:layout_margin="8dp"
         app:buttonColor="@color/btnSignActive"
         app:shadowColor="@android:color/black"
+        android:background="#6E4C9E"
         app:shadowEnabled="true"
         app:shadowHeight="5dp"
         app:cornerRadius="4dp"/>
