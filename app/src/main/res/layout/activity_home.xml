@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Home">
+<<<<<<< HEAD
+    <TextView
+        android:id="@+id/txt_user"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:textSize="24sp"
+        android:background="@android:color/holo_purple"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:text="Hello Le Tuan"/>
+=======
+
+>>>>>>> c968fbe34a472efa8096276dc985751f4574bdf8
+    <FrameLayout
+        android:id="@+id/fragment_contain"
+        android:layout_width="match_parent"
+        android:layout_height="580dp"/>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+<<<<<<< HEAD
+        android:background="#2196F3"
+=======
+        android:background="#E488A7"
+        android:layout_gravity="bottom"
+>>>>>>> c968fbe34a472efa8096276dc985751f4574bdf8
+        app:menu="@menu/menu"
+        />
+
+
+
+</LinearLayout>
