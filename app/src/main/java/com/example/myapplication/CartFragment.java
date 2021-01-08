@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +40,7 @@ import com.bumptech.glide.Glide;
 import Common.Common;
 import Model.Cart;
 import Model.Food;
-
+import Model.User;
 
 
 public class CartFragment extends Fragment {
@@ -50,9 +52,11 @@ public class CartFragment extends Fragment {
     private RecyclerView myCartList;
     private DatabaseReference cartRef;
     private DatabaseReference FoodRef;
+
+    TextView txt_notificate;
     Button btn;
     String currentUserID;
-
+    Context context;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,8 +68,13 @@ public class CartFragment extends Fragment {
 
         currentUserID  = Common.currentUser.getPhone(); // get current user when login
 
-        cartRef = FirebaseDatabase.getInstance().getReference().child("Cart").child(currentUserID);
+        cartRef = FirebaseDatabase.getInstance().getReference().child("Cart");
+
         FoodRef = FirebaseDatabase.getInstance().getReference().child("Foods");
+
+
+// for notificate
+        txt_notificate = cartView.findViewById(R.id.txt_cart_notifiace);
 
         //For button payment
         btn = cartView.findViewById(R.id.btnPayment);
@@ -80,55 +89,77 @@ public class CartFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Food>()
-                .setQuery(cartRef, Food.class)
-                .build();
-
-        FirebaseRecyclerAdapter<Food,CartViewHolder> adapter
-                = new FirebaseRecyclerAdapter<Food, CartViewHolder>(options) {
+        cartRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            protected void onBindViewHolder(@NonNull final CartViewHolder holder, int position, @NonNull Food model) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild(currentUserID)){
+                    txt_notificate.setVisibility(View.INVISIBLE);
+                    btn.setVisibility(View.VISIBLE);
+                    cartRef = cartRef.child(currentUserID);
 
-                String foodID = getRef(position).getKey();
-                FoodRef.child(foodID).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String description = snapshot.child("description").getValue().toString();
-                        String name = snapshot.child("name").getValue().toString();
-                        String price = snapshot.child("price").getValue().toString();
-                        String img = snapshot.child("image").getValue().toString();
-                       holder.description.setText(description);
-                       holder.name.setText(name);
-                       holder.price.setText(price);
-                       Glide.with(holder.image.getContext()).load(img).into(holder.image);
+                    FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Food>()
+                            .setQuery(cartRef, Food.class)
+                            .build();
 
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                    FirebaseRecyclerAdapter<Food,CartViewHolder> adapter
+                            = new FirebaseRecyclerAdapter<Food, CartViewHolder>(options) {
+                        @Override
+                        protected void onBindViewHolder(@NonNull final CartViewHolder holder, int position, @NonNull Food model) {
 
-                    }
-                });
+                            final String foodID = getRef(position).getKey();
+
+                            FoodRef.child(foodID).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                    String description = snapshot.child("description").getValue().toString();
+                                    String name = snapshot.child("name").getValue().toString();
+                                    String price = snapshot.child("price").getValue().toString();
+                                    String img = snapshot.child("image").getValue().toString();
+                                    holder.description.setText(description);
+                                    holder.name.setText(name);
+                                    holder.price.setText(price);
+                                    holder.id = foodID;
+                                    Glide.with(holder.image.getContext()).load(img).into(holder.image);
+
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+
+                        @NonNull
+                        @Override
+                        public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item_display,parent,false);
+                            CartViewHolder viewHolder = new CartViewHolder(view);
+                            return viewHolder;
+                        }
+                    };
+                    myCartList.setAdapter(adapter);
+                    adapter.startListening();
+                }else {
+                    btn.setVisibility(View.INVISIBLE);
+                    txt_notificate.setVisibility(View.VISIBLE);
+                }
+
             }
 
-            @NonNull
             @Override
-            public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item_display,parent,false);
-                CartViewHolder viewHolder = new CartViewHolder(view);
-                return viewHolder;
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
-        };
+        });
 
-
-
-
-        myCartList.setAdapter(adapter);
-        adapter.startListening();
     }
 
-    public static class CartViewHolder extends  RecyclerView.ViewHolder{
+    public    class CartViewHolder extends  RecyclerView.ViewHolder{
         TextView description, price, name;
         ImageView image;
+        String id;
+
 
         public CartViewHolder(@NonNull View itemView ){
             super(itemView);
@@ -136,7 +167,24 @@ public class CartFragment extends Fragment {
             price = itemView.findViewById(R.id.txt_price_cart);
             name =itemView.findViewById(R.id.txt_name_cart);
             image = itemView.findViewById(R.id.img_img_cart);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(getActivity().getApplicationContext(), FoodDetail.class);
+                   intent.putExtra("foodId",id);
+
+                    startActivityForResult(intent,1);
+
+                    startActivity(intent); //or startActivityForResult(REQUEST, intent);
+
+                }
+            });
         }
+
     }
 
 }
+
+
