@@ -1,31 +1,66 @@
 package Model;
 
 public class Cart {
-    private  int idUser;
+
+public String name, image, description, price, discount, menuId;
 
     public Cart() {
     }
 
-    public Cart(int idUser, int idFood) {
-        this.idUser = idUser;
-        this.idFood = idFood;
+    public Cart(String name, String image, String description, String price, String discount, String menuId) {
+        this.name = name;
+        this.image = image;
+        this.description = description;
+        this.price = price;
+        this.discount = discount;
+        this.menuId = menuId;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public String getName() {
+        return name;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getIdFood() {
-        return idFood;
+    public String getImage() {
+        return image;
     }
 
-    public void setIdFood(int idFood) {
-        this.idFood = idFood;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    private int idFood;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
+
+    public String getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
 }

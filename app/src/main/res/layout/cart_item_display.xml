@@ -17,16 +17,16 @@
         android:padding="3dip" >
 
         <ImageView
-            android:id="@+id/list_image"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
+            android:id="@+id/img_img_cart"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
             android:contentDescription="test"/>
     </LinearLayout>
 
     <!-- Menu name -->
 
     <TextView
-        android:id="@+id/menu_name"
+        android:id="@+id/txt_name_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/thumbnail"
@@ -40,11 +40,11 @@
     <!-- Description -->
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/txt_description_cart"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/thumbnail"
-        android:layout_below="@id/menu_name"
+        android:layout_below="@id/txt_name_cart"
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"
         android:text=""
@@ -55,11 +55,11 @@
     <!-- Price -->
 
     <TextView
-        android:id="@+id/price"
+        android:id="@+id/txt_price_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/menu_name"
+        android:layout_alignTop="@id/txt_name_cart"
         android:layout_marginRight="5dip"
         android:gravity="right"
         android:text="giá"

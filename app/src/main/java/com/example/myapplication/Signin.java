@@ -57,6 +57,7 @@ public class Signin extends AppCompatActivity {
                                 Toast.makeText(Signin.this, "Sing in successfully!", Toast.LENGTH_SHORT).show();
                                 Intent homeIntent =new Intent(Signin.this, Home.class);
                                 Common.currentUser=user; //store user
+                                Common.currentUser.setPhone(edtPhone.getText().toString());
                                 startActivity(homeIntent);
                                 finish();
                             } else {
