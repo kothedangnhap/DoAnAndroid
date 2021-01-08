@@ -30,7 +30,7 @@ public class Home extends AppCompatActivity implements RecyclerView.RecyclerList
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         toolbar = getSupportActionBar();
 
-        toolbar.setTitle("Home");
+        toolbar.setTitle("Hello "+Common.currentUser.getName());
 
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener= new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -40,7 +40,7 @@ public class Home extends AppCompatActivity implements RecyclerView.RecyclerList
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    toolbar.setTitle("Home");
+                    toolbar.setTitle("Hello "+Common.currentUser.getName());
                     fragment = new HomeFragment();
                     loadFragment(fragment);
                     return true;
