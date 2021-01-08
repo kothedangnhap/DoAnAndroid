@@ -1,6 +1,6 @@
 package com.example.myapplication;
 
-<<<<<<< HEAD
+
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,18 +12,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-=======
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
->>>>>>> c968fbe34a472efa8096276dc985751f4574bdf8
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-<<<<<<< HEAD
+
 import androidx.fragment.app.ListFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,15 +51,15 @@ public class CartFragment extends Fragment {
     private RecyclerView myCartList;
     private DatabaseReference cartRef;
     private FirebaseAuth mAuth;
-    private  String currentUserID;
+    private String currentUserID;
     Button btn;
-    ArrayList<Foods> foodsArrayList  ;
+    ArrayList<Foods> foodsArrayList;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-    foodsArrayList = new ArrayList<>();
-       cartView = inflater.inflate(R.layout.cart_fragmemt,
+        foodsArrayList = new ArrayList<>();
+        cartView = inflater.inflate(R.layout.cart_fragmemt,
                 container, false);
         myCartList = cartView.findViewById(R.id.cart_list);
         btn = cartView.findViewById(R.id.btnPayment);
@@ -80,7 +74,7 @@ public class CartFragment extends Fragment {
                 table_food.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Foods foods =snapshot.getValue(Foods.class);
+                        Foods foods = snapshot.getValue(Foods.class);
                         foodsArrayList.add(foods);
                         String f = foods.description;
                         btn.setText(foods.description);
@@ -151,26 +145,5 @@ public class CartFragment extends Fragment {
 //        }
 //    }
 
-
-=======
-
-public class CartFragment extends Fragment {
-
-    Button btn;
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view =inflater.inflate(R.layout.cart_fragmemt, container, false);
-        btn = view.findViewById(R.id.isClickPayemnt);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btn.setText("Ok ne");
-            }
-        });
-        return view;
-    }
->>>>>>> c968fbe34a472efa8096276dc985751f4574bdf8
 }
+

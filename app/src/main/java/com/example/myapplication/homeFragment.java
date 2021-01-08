@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-=======
+
+
 import android.widget.Button;
->>>>>>> c968fbe34a472efa8096276dc985751f4574bdf8
+
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
