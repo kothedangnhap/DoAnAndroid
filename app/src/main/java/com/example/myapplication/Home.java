@@ -36,7 +36,7 @@ public class Home extends AppCompatActivity {
                     selectedFragment = new homeFragment();
                     break;
                 case R.id.nav_menu:
-
+                    selectedFragment = new Categories_Fragment();
                     break;
                 case R.id.nav_cart:
                     selectedFragment = new CartFragment();
