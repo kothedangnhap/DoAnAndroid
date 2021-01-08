@@ -1,49 +1,59 @@
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
-
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import Common.Common;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements RecyclerView.RecyclerListener {
     BottomNavigationView bottomNavigationView;
+    private ActionBar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
         bottomNavigationView=findViewById(R.id.navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener((BottomNavigationView.OnNavigationItemSelectedListener) navListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contain,new homeFragment()).commit();
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        toolbar = getSupportActionBar();
+
+        toolbar.setTitle("Hello "+Common.currentUser.getName());
 
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener= new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            Fragment selectedFragment = null;
+            Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    selectedFragment = new homeFragment();
-                    break;
-
-
+                    toolbar.setTitle("Hello "+Common.currentUser.getName());
+                    fragment = new HomeFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.nav_menu:
+                    toolbar.setTitle("Categories");
+                    fragment = new Categories_Fragment();
+                    loadFragment(fragment);
+                    return true;
                 case R.id.nav_cart:
-                    selectedFragment = new CartFragment();
-                    break;
+                    toolbar.setTitle("Cart");
+                    fragment = new CartFragment();
+                    loadFragment(fragment);
+                    return true;
                 case R.id.nav_sign_out:
                     AlertDialog.Builder builder=new AlertDialog.Builder(Home.this);
                     builder.setTitle("Signout").setMessage("Do you really want to sign out?").setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -66,8 +76,18 @@ public class Home extends AppCompatActivity {
                     AlertDialog dialog=builder.create();
                     dialog.show();
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contain,selectedFragment).commit();
             return false;
         }
     };
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_contain, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+
+    }
 }

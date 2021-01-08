@@ -1,123 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:orientation="vertical"-->
-
-<!--    >-->
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        >-->
-<!--        <TextView-->
-<!--            android:background="@color/backgroundCart"-->
-<!--            android:id="@+id/textView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textSize="30dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="Giỏ hàng" />-->
-<!--    </LinearLayout>-->
-<!--    <LinearLayout-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical">-->
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textSize="30dp"-->
-<!--            android:text="Món ăn" />-->
-
-<!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            >-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/imgMon"-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:src="@drawable/img" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/txtNameFood"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="20dp"-->
-
-<!--                android:layout_toRightOf="@id/imgMon"-->
-<!--                android:text="Tên món" />-->
-<!--            <TextView-->
-<!--                android:id="@+id/txtPrice"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="20dp"-->
-
-<!--                android:layout_below="@id/txtNameFood"-->
-<!--                android:layout_toRightOf="@id/imgMon"-->
-<!--                android:text="Giá:" />-->
-<!--            <TextView-->
-<!--                android:id="@+id/txtAmount"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="20dp"-->
-
-<!--                android:layout_below="@id/txtPrice"-->
-<!--                android:layout_toRightOf="@id/imgMon"-->
-<!--                android:text="Số lượng:" />-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/editTextNumber"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="20dp"-->
-<!--                android:layout_below="@id/txtPrice"-->
-<!--                android:layout_toRightOf="@id/txtAmount"-->
-<!--                android:ems="10"></EditText>-->
-
-
-<!--        </RelativeLayout>-->
-
-<!--    </LinearLayout>-->
-
-
-<!--    <Button-->
-<!--        android:id="@+id/isClickPayemnt"-->
-
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center|bottom"-->
-<!--        android:text="Tính tiền"-->
-<!--        ></Button>-->
-<!--</LinearLayout>-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cart_list"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-<!--    <TextView-->
-<!--        android:gravity="center"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Cart Fragment"-->
-<!--        ></TextView>-->
-<!--    -->
-<Button
-    android:id="@+id/btnPayment"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:text="Đặt hàng"></Button>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            android:text="Món ăn" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+                android:id="@+id/imgMon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/img" />
+
+            <TextView
+                android:id="@+id/txtNameFood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/imgMon"
+                android:text="Tên món" />
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@id/txtNameFood"
+                android:layout_toRightOf="@id/imgMon"
+                android:text="Giá:" />
+            <TextView
+                android:id="@+id/txtAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@id/txtPrice"
+                android:layout_toRightOf="@id/imgMon"
+                android:text="Số lượng:" />
+
+            <EditText
+                android:id="@+id/editTextNumber"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/txtPrice"
+                android:layout_toRightOf="@id/txtAmount"
+                android:ems="10"></EditText>
+        </RelativeLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/isClickPayemnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:text="Tính tiền"
+        ></Button>
 </LinearLayout>
