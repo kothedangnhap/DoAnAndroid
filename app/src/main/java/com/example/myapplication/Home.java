@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,16 +24,22 @@ public class Home extends AppCompatActivity {
 
         bottomNavigationView=findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener((BottomNavigationView.OnNavigationItemSelectedListener) navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contain,new homeFragment()).commit();
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener= new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.nav_home:
-
+                    selectedFragment = new homeFragment();
                     break;
                 case R.id.nav_menu:
-
+                    selectedFragment = new Categories_Fragment();
+                    break;
+                case R.id.nav_cart:
+                    selectedFragment = new CartFragment();
                     break;
                 case R.id.nav_sign_out:
                     AlertDialog.Builder builder=new AlertDialog.Builder(Home.this);
@@ -56,7 +63,8 @@ public class Home extends AppCompatActivity {
                     AlertDialog dialog=builder.create();
                     dialog.show();
             }
-            return true;
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contain,selectedFragment).commit();
+            return false;
         }
     };
 }
