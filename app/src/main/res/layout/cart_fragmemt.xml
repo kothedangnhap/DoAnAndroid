@@ -114,10 +114,21 @@
     <!--        android:text="Cart Fragment"-->
     <!--        ></TextView>-->
     <!--    -->
+    <TextView
+        android:id="@+id/txt_cart_notifiace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="Bạn chưa có gì trong giỏ hàng"
+        android:textStyle="bold"
+        android:textSize="30dp"
+
+        ></TextView>
     <Button
         android:id="@+id/btnPayment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:visibility="gone"
         android:text="Đặt hàng"></Button>
 </LinearLayout>

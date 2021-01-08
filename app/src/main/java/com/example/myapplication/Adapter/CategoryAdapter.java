@@ -1,5 +1,6 @@
 package com.example.myapplication.Adapter;
 
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.ColorSpace;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.FoodDetail;
 import com.example.myapplication.R;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -50,11 +52,19 @@ public class CategoryAdapter extends FirebaseRecyclerAdapter<Category,CategoryAd
         ImageView food_img;
         TextView food_name;
 
-        public myviewholder(@NonNull View itemView) {
+        public myviewholder(@NonNull final View itemView) {
             super(itemView);
 
             food_img = itemView.findViewById(R.id.food_img);
             food_name = itemView.findViewById(R.id.food_name);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), FoodDetail.class);
+                   itemView.getContext().startActivity(intent); //or startActivityForResult(REQUEST, intent);
+
+                }
+            });
         }
     }
 }

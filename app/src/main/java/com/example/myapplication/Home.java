@@ -46,6 +46,7 @@ public class Home extends AppCompatActivity implements RecyclerView.RecyclerList
                     return true;
                 case R.id.nav_category:
                     toolbar.setTitle("Categories");
+
                     fragment = new Categories_Fragment();
                     loadFragment(fragment);
                     return true;
