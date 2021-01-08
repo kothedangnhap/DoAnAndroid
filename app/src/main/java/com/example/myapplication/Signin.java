@@ -30,19 +30,23 @@ public class Signin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
-        edtPassword = (MaterialEditText)findViewById(R.id.editPassword);
+        edtPassword = (MaterialEditText)findViewById(R.id.editPassword); // get field password
         edtPhone = (MaterialEditText)findViewById(R.id.editPhone);
-        btnSignIn= findViewById(R.id.btnSignIn);
+        btnSignIn= findViewById(R.id.btnSignIn); // get button sigint
 
+        // declare database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //get table user in firebase
         final DatabaseReference table_user = database.getReference("user");
 
+        // catch event click when signin
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final ProgressDialog mDialog =new ProgressDialog(Signin.this);
                 mDialog.setMessage("please waiting...");
                 mDialog.show();
+                //add data to table user
                 table_user.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -52,7 +56,8 @@ public class Signin extends AppCompatActivity {
                             if (user.getPassword().equals(edtPassword.getText().toString())) {
                                 Toast.makeText(Signin.this, "Sing in successfully!", Toast.LENGTH_SHORT).show();
                                 Intent homeIntent =new Intent(Signin.this, Home.class);
-                                Common.currentUser=user;
+                                Common.currentUser=user; //store user
+                                Common.currentUser.setPhone(edtPhone.getText().toString());
                                 startActivity(homeIntent);
                                 finish();
                             } else {
