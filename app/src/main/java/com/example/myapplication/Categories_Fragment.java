@@ -36,6 +36,7 @@ public class Categories_Fragment extends Fragment {
     private String mParam2;
     private DatabaseReference FoodRef;
 
+
     RecyclerView recview;
     CategoryAdapter adapter;
 

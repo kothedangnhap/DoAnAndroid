@@ -156,11 +156,10 @@ public class CartFragment extends Fragment {
 
     }
 
-    public    class CartViewHolder extends  RecyclerView.ViewHolder{
+    public class CartViewHolder extends  RecyclerView.ViewHolder{
         TextView description, price, name;
         ImageView image;
         String id;
-
 
         public CartViewHolder(@NonNull View itemView ){
             super(itemView);
