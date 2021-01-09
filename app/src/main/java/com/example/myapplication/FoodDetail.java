@@ -55,6 +55,7 @@ public class FoodDetail extends AppCompatActivity {
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppbar);
 
         Intent foodId = getIntent();
+
         final String id =  foodId.getStringExtra("foodId");
         FoodRef = FirebaseDatabase.getInstance().getReference().child("Foods").child(id);
         cartRef = FirebaseDatabase.getInstance().getReference().child("Cart");
