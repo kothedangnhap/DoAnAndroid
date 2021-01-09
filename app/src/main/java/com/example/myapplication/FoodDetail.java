@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,27 +21,41 @@ import com.google.firebase.database.ValueEventListener;
 import com.bumptech.glide.Glide;
 
 import Common.Common;
+import Model.Food;
 
 public class FoodDetail extends AppCompatActivity {
-    private DatabaseReference FoodRef;
-    TextView txt_description,txt_detail_food_name,txt_detail_food_price;
-    ImageView img_food;
-    String staticPrice;
-     ElegantNumberButton numberButton;
-    FloatingActionButton btn_detail_food_AddToCart;
-    private DatabaseReference cartRef;
+        private DatabaseReference FoodRef;
+
+        TextView txt_description,txt_detail_food_name,txt_detail_food_price;
+        ImageView img_food;
+        String staticPrice;
+
+        CollapsingToolbarLayout collapsingToolbarLayout;
+        ElegantNumberButton numberButton;
+        FloatingActionButton btn_detail_food_AddToCart;
+
+        String foodId="";
+
+        private DatabaseReference cartRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_detail);
-       numberButton = findViewById(R.id.btn_detail_food_plus);
+
+        numberButton = findViewById(R.id.btn_detail_food_plus);
         img_food = findViewById(R.id.img_food);
         txt_detail_food_name = findViewById(R.id.txt_detail_food_name);
         txt_description = findViewById(R.id.txt_detail_food_description);
         btn_detail_food_AddToCart = findViewById(R.id.btn_detail_food_AddToCart);
         txt_detail_food_price = findViewById(R.id.txt_detail_food_price);
 
-        Intent foodId =getIntent();
+        collapsingToolbarLayout = findViewById(R.id.collapsing);
+        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandeAppbar);
+        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppbar);
+
+        Intent foodId = getIntent();
+
         final String id =  foodId.getStringExtra("foodId");
         FoodRef = FirebaseDatabase.getInstance().getReference().child("Foods").child(id);
         cartRef = FirebaseDatabase.getInstance().getReference().child("Cart");
@@ -86,5 +101,4 @@ public class FoodDetail extends AppCompatActivity {
             }
         });
     }
-
 }
