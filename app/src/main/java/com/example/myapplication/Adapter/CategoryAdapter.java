@@ -19,24 +19,28 @@ import com.example.myapplication.R;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.core.Context;
 
 import java.util.List;
 
 import Common.Common;
 import Model.Category;
+import Model.Food;
 
-public class CategoryAdapter extends FirebaseRecyclerAdapter<Category,CategoryAdapter.myviewholder>
+public class CategoryAdapter extends FirebaseRecyclerAdapter<Food,CategoryAdapter.myviewholder>
 {
+    private DatabaseReference FoodRef;
 
-    public CategoryAdapter(@NonNull FirebaseRecyclerOptions<Category> options) {
+    public CategoryAdapter(@NonNull FirebaseRecyclerOptions<Food> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull Category category) {
-        holder.food_name.setText(category.getName());
-        Glide.with(holder.food_img.getContext()).load(category.getImage()).into(holder.food_img);
+    protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull Food food) {
+        holder.food_name.setText(food.getName());
+        Glide.with(holder.food_img.getContext()).load(food.getImage()).into(holder.food_img);
 
     }
 
@@ -44,6 +48,7 @@ public class CategoryAdapter extends FirebaseRecyclerAdapter<Category,CategoryAd
     @Override
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item_list,parent,false);
+        FoodRef = FirebaseDatabase.getInstance().getReference().child("Foods");
         return new myviewholder(view);
     }
 
@@ -51,18 +56,21 @@ public class CategoryAdapter extends FirebaseRecyclerAdapter<Category,CategoryAd
 
         ImageView food_img;
         TextView food_name;
+        String id;
 
         public myviewholder(@NonNull final View itemView) {
             super(itemView);
 
             food_img = itemView.findViewById(R.id.food_img);
             food_name = itemView.findViewById(R.id.food_name);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(itemView.getContext(), FoodDetail.class);
-                   itemView.getContext().startActivity(intent); //or startActivityForResult(REQUEST, intent);
+                    intent.putExtra("foodId",id);
 
+                    itemView.getContext().startActivity(intent); //or startActivityForResult(REQUEST, intent);
                 }
             });
         }

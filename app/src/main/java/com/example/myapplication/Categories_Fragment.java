@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -21,6 +25,7 @@ import java.util.Locale;
 
 import com.example.myapplication.Adapter.CategoryAdapter;
 import Model.Category;
+import Model.Food;
 
 public class Categories_Fragment extends Fragment {
 
@@ -29,6 +34,7 @@ public class Categories_Fragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    private DatabaseReference FoodRef;
 
     RecyclerView recview;
     CategoryAdapter adapter;
@@ -60,14 +66,17 @@ public class Categories_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
 
-        recview = (RecyclerView)view.findViewById(R.id.recycler_category);
+        recview = view.findViewById(R.id.recycler_category);
         recview.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FirebaseRecyclerOptions<Category> options = new FirebaseRecyclerOptions.Builder<Category>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("Categori"),Category.class)
+        FirebaseRecyclerOptions<Food> options = new FirebaseRecyclerOptions.Builder<Food>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Foods"),Food.class)
                 .build();
-        adapter=new CategoryAdapter(options);
+
+        adapter = new CategoryAdapter(options);
         recview.setAdapter(adapter);
+
+        FoodRef = FirebaseDatabase.getInstance().getReference().child("Foods");
 
         return view;
     }
@@ -83,5 +92,31 @@ public class Categories_Fragment extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    public class FoodViewHolder extends RecyclerView.ViewHolder{
+        TextView  name;
+        ImageView image;
+        String id;
+
+        public FoodViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            name =itemView.findViewById(R.id.food_name);
+            image = itemView.findViewById(R.id.food_img);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(getActivity().getApplicationContext(), FoodDetail.class);
+                    intent.putExtra("foodId",id);
+
+                    startActivityForResult(intent,1);
+
+                    startActivity(intent); //or startActivityForResult(REQUEST, intent);
+                }
+            });
+        }
     }
 }

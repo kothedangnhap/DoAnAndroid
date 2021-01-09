@@ -173,7 +173,7 @@ public class CartFragment extends Fragment {
                 public void onClick(View v) {
 
                     Intent intent = new Intent(getActivity().getApplicationContext(), FoodDetail.class);
-                   intent.putExtra("foodId",id);
+                    intent.putExtra("foodId",id);
 
                     startActivityForResult(intent,1);
 
