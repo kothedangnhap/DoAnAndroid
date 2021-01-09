@@ -4,6 +4,7 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +76,7 @@ public class CartFragment extends Fragment {
 
 // for notificate
         txt_notificate = cartView.findViewById(R.id.txt_cart_notifiace);
-
+        txt_notificate.setVisibility(View.INVISIBLE);
         //For button payment
         btn = cartView.findViewById(R.id.btnPayment);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +94,7 @@ public class CartFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChild(currentUserID)){
-                    txt_notificate.setVisibility(View.INVISIBLE);
+
                     btn.setVisibility(View.VISIBLE);
                     cartRef = cartRef.child(currentUserID);
 
@@ -171,13 +172,12 @@ public class CartFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     Intent intent = new Intent(getActivity().getApplicationContext(), FoodDetail.class);
                     intent.putExtra("foodId",id);
 
                     startActivityForResult(intent,1);
 
-                    startActivity(intent); //or startActivityForResult(REQUEST, intent);
+//                    startActivity(intent); //or startActivityForResult(REQUEST, intent);
 
                 }
             });
