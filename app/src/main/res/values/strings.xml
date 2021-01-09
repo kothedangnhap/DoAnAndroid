@@ -14,7 +14,10 @@
     <string name="order_number">Phone Number</string>
     <string name="order_address">Address</string>
     <string name="order_total">Total</string>
-    <string name="order_save">Save</string>
+    <string name="order_save">Thanh Toán</string>
+    <string name="order_tructiep">Thanh toán trực tiếp</string>
+    <string name="order_online">Thanh toán Online</string>
+    <string name="order_note">Ghi Chú</string>
 
     <string name="menu_home">Home</string>
     <string name="sign_out">Sign out</string>
