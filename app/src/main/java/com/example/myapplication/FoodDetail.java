@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -21,7 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.bumptech.glide.Glide;
 
 import Common.Common;
+import Model.CartItem;
 import Model.Food;
+import Model.isSave;
 
 public class FoodDetail extends AppCompatActivity {
         private DatabaseReference FoodRef;
@@ -30,11 +33,13 @@ public class FoodDetail extends AppCompatActivity {
         ImageView img_food;
         String staticPrice;
 
+
         CollapsingToolbarLayout collapsingToolbarLayout;
         ElegantNumberButton numberButton;
         FloatingActionButton btn_detail_food_AddToCart;
 
-        String foodId="";
+       String id;
+       CartItem cartItem;
 
         private DatabaseReference cartRef;
 
@@ -54,9 +59,9 @@ public class FoodDetail extends AppCompatActivity {
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandeAppbar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppbar);
 
-        Intent foodId = getIntent();
+        final Intent foodId = getIntent();
 
-        final String id =  foodId.getStringExtra("foodId");
+         id =  foodId.getStringExtra("foodId");
         FoodRef = FirebaseDatabase.getInstance().getReference().child("Foods").child(id);
         cartRef = FirebaseDatabase.getInstance().getReference().child("Cart");
         FoodRef.addValueEventListener(new ValueEventListener() {
@@ -83,6 +88,12 @@ public class FoodDetail extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(Common.currentUser.getPhone()).hasChild(id)){
                     btn_detail_food_AddToCart.setClickable(false);
+                    btn_detail_food_AddToCart.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(FoodDetail.this, " Food is added to your cart", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
 
@@ -94,10 +105,37 @@ public class FoodDetail extends AppCompatActivity {
         numberButton.setOnClickListener(new ElegantNumberButton.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                     int number = Integer.parseInt(numberButton.getNumber());
 
                     int result = number *Integer.parseInt(staticPrice);
                    txt_detail_food_price.setText(Integer.toString(result));
+            }
+        });
+        btn_detail_food_AddToCart.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                btn_detail_food_AddToCart.setClickable(false);
+                cartRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        isSave i = new isSave("saved");
+                        cartRef.child(Common.currentUser.getPhone()).child(id).setValue(i);
+
+                        if(btn_detail_food_AddToCart.isClickable())
+                            Toast.makeText(FoodDetail.this, "Added to cart", Toast.LENGTH_SHORT).show();
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
     }

@@ -54,6 +54,7 @@ public class CategoryAdapter extends FirebaseRecyclerAdapter<Food,CategoryAdapte
         ImageView food_img;
         TextView food_name;
         String category_id;
+
         String FoodID;
 
         public myviewholder(@NonNull final View itemView) {
