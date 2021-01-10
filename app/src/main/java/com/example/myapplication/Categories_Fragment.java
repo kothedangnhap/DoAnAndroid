@@ -98,7 +98,7 @@ public class Categories_Fragment extends Fragment {
         super.onStop();
         adapter.stopListening();
     }
-
+    //action search
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu, menu);
