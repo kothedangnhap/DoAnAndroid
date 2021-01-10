@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -82,7 +83,10 @@ public class CartFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Code for payment here
+                Toast.makeText(getContext(), "please waiting...", Toast.LENGTH_SHORT).show();
+                Intent Order = new Intent(getContext(), OrderActivity.class);
+                startActivity(Order);
+
             }
         });
         return cartView;
