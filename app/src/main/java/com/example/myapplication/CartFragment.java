@@ -130,7 +130,6 @@ public class CartFragment extends Fragment {
                                 }
                             });
                         }
-
                         @NonNull
                         @Override
                         public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

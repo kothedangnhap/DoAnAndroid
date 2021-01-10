@@ -2,17 +2,25 @@ package Model;
 
 public class BestDeal {
     private String menuId;
-    private String foodId;
+    private String food_id;
     private String name;
     private String image;
+
+    public String getFood_id() {
+        return food_id;
+    }
+
+    public void setFood_id(String food_id) {
+        this.food_id = food_id;
+    }
 
     public BestDeal() {
 
     }
 
-    public BestDeal(String menuId, String foodId, String name, String image) {
+    public BestDeal(String menuId, String food_id, String name, String image) {
         this.menuId = menuId;
-        this.foodId = foodId;
+        this.food_id = food_id;
         this.name = name;
         this.image = image;
     }
@@ -30,13 +38,7 @@ public class BestDeal {
         this.menuId = menuId;
     }
 
-    public String getFoodId() {
-        return foodId;
-    }
 
-    public void setFoodId(String foodId) {
-        this.foodId = foodId;
-    }
 
     public String getName() {
         return name;
