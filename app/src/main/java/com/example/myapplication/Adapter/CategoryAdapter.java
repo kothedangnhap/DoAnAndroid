@@ -31,6 +31,8 @@ public class CategoryAdapter extends FirebaseRecyclerAdapter<Food,CategoryAdapte
         super(options);
     }
 
+
+
     @Override
     protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull Food food) {
         String FoodID = getRef(position).getKey();

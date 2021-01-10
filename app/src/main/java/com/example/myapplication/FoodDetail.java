@@ -2,16 +2,22 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.myapplication.Adapter.CategoryAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +38,7 @@ public class FoodDetail extends AppCompatActivity {
         TextView txt_description,txt_detail_food_name,txt_detail_food_price;
         ImageView img_food;
         String staticPrice;
+
 
 
         CollapsingToolbarLayout collapsingToolbarLayout;
