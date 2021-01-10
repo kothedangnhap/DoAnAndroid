@@ -11,9 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -73,7 +77,7 @@ public class Categories_Fragment extends Fragment {
         FirebaseRecyclerOptions<Food> options = new FirebaseRecyclerOptions.Builder<Food>()
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("Foods"),Food.class)
                 .build();
-
+        setHasOptionsMenu(true);
         adapter = new CategoryAdapter(options);
         recview.setAdapter(adapter);
 
@@ -93,6 +97,35 @@ public class Categories_Fragment extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+    //action search
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+        MenuItem item=menu.findItem(R.id.search);
+        SearchView searchView=(SearchView)item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                processSearch(s);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void processSearch(String s) {
+        FirebaseRecyclerOptions<Food> options = new FirebaseRecyclerOptions.Builder<Food>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Foods").orderByChild("foodId").startAt(s).endAt(s+"\uf8ff"),Food.class)
+                .build();
+        adapter=new CategoryAdapter(options);
+        adapter.startListening();
+        recview.setAdapter(adapter);
     }
 
     public class FoodViewHolder extends RecyclerView.ViewHolder{

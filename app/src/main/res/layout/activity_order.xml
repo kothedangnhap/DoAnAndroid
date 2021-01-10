@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textStyle="bold"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:textSize="37dp"
         android:text="Thanh Toán"
         />
@@ -34,7 +34,7 @@
             android:inputType="textPersonName"
             app:met_baseColor="@color/colorBlack"
             app:met_floatingLabel="highlight"
-            app:met_maxCharacters="11"
+            app:met_maxCharacters="30"
             app:met_primaryColor="@color/colorPrimary"
             app:met_singleLineEllipsis="true"
             android:layout_width="match_parent"
@@ -61,10 +61,46 @@
             android:inputType="text"
             app:met_baseColor="@color/colorBlack"
             app:met_floatingLabel="highlight"
-            app:met_maxCharacters="11"
             app:met_singleLineEllipsis="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editNote"
+            android:hint="@string/order_note"
+            android:textColorHint="@color/colorBlack"
+            android:textColor="@android:color/white"
+            android:textSize="34sp"
+            android:inputType="text"
+            app:met_baseColor="@color/colorBlack"
+            app:met_floatingLabel="highlight"
+            app:met_singleLineEllipsis="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phương thức thanh toán"
+            android:textStyle="bold"/>
+        <RadioGroup
+          android:id="@+id/grpayment"
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <RadioButton
+                android:id="@+id/rdo_payment1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/order_tructiep"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rdo_payment2"
+                android:text="@string/order_online"
+                />
+        </RadioGroup>
     </LinearLayout>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSave"
