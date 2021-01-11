@@ -22,6 +22,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +34,7 @@ import java.util.Locale;
 
 import com.example.myapplication.Adapter.CategoryAdapter;
 import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import Model.Category;
@@ -47,7 +49,7 @@ public class Categories_Fragment extends Fragment {
     private String mParam2;
     private DatabaseReference FoodRef;
 
-    private List<Food> foodList;
+    private ArrayList<Food> foodList;
     private List<Food> foodListFiltered;
 
 
@@ -118,29 +120,53 @@ public class Categories_Fragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-
+                processSearch(s);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                adapter.getFilter().filter(s);
+//                adapter.getFilter().filter(s);
                 return false;
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-//    private void processSearch(String s) {
-//        FirebaseRecyclerOptions<Food> options = new FirebaseRecyclerOptions.Builder<Food>()
-//                .setQuery(FirebaseDatabase.getInstance().getReference().child("Foods").orderByChild("name").startAt(s).endAt(s+"\uf8ff"),Food.class)
-//                .build();
-//
-//        adapter=new CategoryAdapter(options);
-//        adapter.startListening();
-//        recview.setAdapter(adapter);
-//    }
-//
+    private void processSearch(final String s) {
+        Query query = FirebaseDatabase.getInstance().getReference().child("Foods");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                foodList.clear();
+                for (DataSnapshot item : snapshot.getChildren()){
+                    Food food = item.getValue(Food.class);
+                    if (food.getName().toLowerCase().contains(s.toLowerCase().trim())){
+                        foodList.add(food);
+                    }
+
+                }
+                CustomAdapter customAdapter = new CustomAdapter(getContext(),foodList);
+                recview.setAdapter(customAdapter);
+                customAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        FirebaseRecyclerOptions<Food> options = new FirebaseRecyclerOptions.Builder<Food>()
+                .setQuery(query,Food.class)
+                .build();
+
+        adapter=new CategoryAdapter(options);
+        adapter.startListening();
+        recview.setAdapter(adapter);
+    }
+
 //    public class FoodViewHolder extends RecyclerView.ViewHolder{
 //        TextView  name;
 //        ImageView image;
