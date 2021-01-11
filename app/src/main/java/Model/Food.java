@@ -1,16 +1,16 @@
 package Model;
 
 public class Food {
-    private String name, image, description, pric, discount, menuId;
+    private String name, image, description, price, discount, menuId;
 
     public Food() {
     }
 
-    public Food(String name, String image, String description, String pric, String discount, String menuId) {
+    public Food(String name, String image, String description, String price, String discount, String menuId) {
         this.name = name;
         this.image = image;
         this.description = description;
-        this.pric = pric;
+        this.price = price;
         this.discount = discount;
         this.menuId = menuId;
     }
@@ -40,11 +40,11 @@ public class Food {
     }
 
     public String getPric() {
-        return pric;
+        return price;
     }
 
     public void setPric(String pric) {
-        this.pric = pric;
+        this.price = pric;
     }
 
     public String getDiscount() {

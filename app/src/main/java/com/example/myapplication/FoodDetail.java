@@ -95,12 +95,12 @@ public class FoodDetail extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(Common.currentUser.getPhone()).hasChild(id)){
                     btn_detail_food_AddToCart.setClickable(false);
-                    btn_detail_food_AddToCart.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast.makeText(FoodDetail.this, " Food is added to your cart", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+//                    btn_detail_food_AddToCart.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Toast.makeText(FoodDetail.this, " Food is added to your cart", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                 }
             }
 
@@ -123,16 +123,19 @@ public class FoodDetail extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                btn_detail_food_AddToCart.setClickable(false);
-                cartRef.addValueEventListener(new ValueEventListener() {
+
+                if(btn_detail_food_AddToCart.isClickable() == false){
+                    Toast.makeText(FoodDetail.this, " Food is added to your cart", Toast.LENGTH_SHORT).show();
+                }
+                cartRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        btn_detail_food_AddToCart.setClickable(false);
                         isSave i = new isSave("saved");
                         cartRef.child(Common.currentUser.getPhone()).child(id).setValue(i);
 
-                        if(btn_detail_food_AddToCart.isClickable())
-                            Toast.makeText(FoodDetail.this, "Added to cart", Toast.LENGTH_SHORT).show();
 
+                            Toast.makeText(FoodDetail.this, "Added to cart", Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -145,5 +148,6 @@ public class FoodDetail extends AppCompatActivity {
 
             }
         });
+
     }
 }

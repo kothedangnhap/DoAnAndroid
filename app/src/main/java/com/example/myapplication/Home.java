@@ -28,6 +28,7 @@ public class Home extends AppCompatActivity implements RecyclerView.RecyclerList
 
         bottomNavigationView=findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contain,new HomeFragment()).commit();
         toolbar = getSupportActionBar();
 
         toolbar.setTitle("Hello "+Common.currentUser.getName());
