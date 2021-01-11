@@ -16,18 +16,25 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import com.example.myapplication.Adapter.CategoryAdapter;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
 import Model.Category;
 import Model.Food;
 
@@ -35,10 +42,13 @@ public class Categories_Fragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    FirebaseRecyclerOptions<Food> options;
     private String mParam1;
     private String mParam2;
     private DatabaseReference FoodRef;
+
+    private List<Food> foodList;
+    private List<Food> foodListFiltered;
 
 
     RecyclerView recview;
@@ -70,14 +80,15 @@ public class Categories_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
-
+        foodList = new ArrayList<>();
         recview = view.findViewById(R.id.recycler_category);
         recview.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FirebaseRecyclerOptions<Food> options = new FirebaseRecyclerOptions.Builder<Food>()
+        options = new FirebaseRecyclerOptions.Builder<Food>()
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("Foods"),Food.class)
                 .build();
         setHasOptionsMenu(true);
+
         adapter = new CategoryAdapter(options);
         recview.setAdapter(adapter);
 
@@ -107,50 +118,52 @@ public class Categories_Fragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                processSearch(s);
-                return true;
+
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
                 return false;
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private void processSearch(String s) {
-        FirebaseRecyclerOptions<Food> options = new FirebaseRecyclerOptions.Builder<Food>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("Foods").orderByChild("foodId").startAt(s).endAt(s+"\uf8ff"),Food.class)
-                .build();
-        adapter=new CategoryAdapter(options);
-        adapter.startListening();
-        recview.setAdapter(adapter);
-    }
-
-    public class FoodViewHolder extends RecyclerView.ViewHolder{
-        TextView  name;
-        ImageView image;
-        String id;
-
-        public FoodViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            name =itemView.findViewById(R.id.food_name);
-            image = itemView.findViewById(R.id.food_img);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent intent = new Intent(getActivity().getApplicationContext(), FoodDetail.class);
-                    intent.putExtra("foodId",id);
-
-                    startActivityForResult(intent,1);
-
-                    startActivity(intent); //or startActivityForResult(REQUEST, intent);
-                }
-            });
-        }
-    }
+//    private void processSearch(String s) {
+//        FirebaseRecyclerOptions<Food> options = new FirebaseRecyclerOptions.Builder<Food>()
+//                .setQuery(FirebaseDatabase.getInstance().getReference().child("Foods").orderByChild("name").startAt(s).endAt(s+"\uf8ff"),Food.class)
+//                .build();
+//
+//        adapter=new CategoryAdapter(options);
+//        adapter.startListening();
+//        recview.setAdapter(adapter);
+//    }
+//
+//    public class FoodViewHolder extends RecyclerView.ViewHolder{
+//        TextView  name;
+//        ImageView image;
+//        String id;
+//
+//        public FoodViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//
+//            name =itemView.findViewById(R.id.food_name);
+//            image = itemView.findViewById(R.id.food_img);
+//
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    Intent intent = new Intent(getActivity().getApplicationContext(), FoodDetail.class);
+//                    intent.putExtra("foodId",id);
+//
+//                    startActivityForResult(intent,1);
+//
+//                    startActivity(intent); //or startActivityForResult(REQUEST, intent);
+//                }
+//            });
+//        }
+//    }
 }
