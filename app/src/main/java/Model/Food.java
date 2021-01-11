@@ -1,7 +1,30 @@
 package Model;
 
 public class Food {
-    private String name, image, description, price, discount, menuId;
+    private String name;
+    private String image;
+    private String description;
+    private String price;
+    private String discount;
+    private String menuId;
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    private String id;
 
     public Food() {
     }

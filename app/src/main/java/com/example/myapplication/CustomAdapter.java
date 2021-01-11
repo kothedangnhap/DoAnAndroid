@@ -46,15 +46,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.myviewhold
     private  List<Food> foodListFull;
     Fragment fragment;
     public CustomAdapter(@NonNull Context context ,ArrayList<Food> arrayList) {
-
-
         this.c = context;
         this.foodList  =arrayList;
-
-
-
-
-
     }
 
 
@@ -62,10 +55,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.myviewhold
     public void onBindViewHolder(@NonNull myviewholder holder, int position) {
         Food  food= foodList.get(position);
         holder.food_name.setText(food.getName());
+        holder.FoodID = food.getId();
         Glide.with(holder.food_img.getContext()).load(food.getImage()).into(holder.food_img);
         holder.category_id = food.getMenuId();
-
-
     }
 
     @NonNull

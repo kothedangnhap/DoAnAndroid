@@ -127,6 +127,7 @@ public class Categories_Fragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
 //                adapter.getFilter().filter(s);
+                processSearch(s);
                 return false;
             }
         });
@@ -142,6 +143,7 @@ public class Categories_Fragment extends Fragment {
                 for (DataSnapshot item : snapshot.getChildren()){
                     Food food = item.getValue(Food.class);
                     if (food.getName().toLowerCase().contains(s.toLowerCase().trim())){
+                        food.setId(item.getKey());
                         foodList.add(food);
                     }
 
