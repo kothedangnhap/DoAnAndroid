@@ -34,7 +34,6 @@ import Common.Common;
 import Model.Order;
 
 public class OrderActivity extends AppCompatActivity {
-
     MaterialEditText editName,editPhone,editAddress,editNote;
     Button btnSave;
     RadioGroup rdgGroupPayment;
@@ -44,7 +43,6 @@ public class OrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-
         editName = findViewById(R.id.editName);
         editPhone = findViewById(R.id.editPhone);
         editAddress = findViewById(R.id.editAddress);
@@ -52,16 +50,14 @@ public class OrderActivity extends AppCompatActivity {
         editNote = findViewById(R.id.editNote);
         rdgGroupPayment = findViewById(R.id.grpayment);
         foodId = new ArrayList<>();
-        //set default checked
+
         rdbPayment =  findViewById(R.id.rdo_payment1);
         rdbPayment.setChecked(true);
-        //Get id selected
+
         int selectedId = rdgGroupPayment.getCheckedRadioButtonId();
         rdbPayment = findViewById(selectedId);
-
         editName.setText(Common.currentUser.getName());
         editPhone.setText(Common.currentUser.getPhone());
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_order = database.getReference("order");
         final DatabaseReference table_cart = database.getReference("Cart");
@@ -82,12 +78,11 @@ public class OrderActivity extends AppCompatActivity {
                             table_cart.child(Common.currentUser.getPhone()).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    table_order.child(Common.currentUser.getPhone().toString()).setValue(order);
+                                    table_order.child(Common.currentUser.getPhone()).setValue(order);
                                     for (DataSnapshot childDataSnapshot : snapshot.getChildren()) {
-                                        table_order.child(Common.currentUser.getPhone().toString()).child("Food").child(childDataSnapshot.getKey()).setValue("order");
+                                        table_order.child(Common.currentUser.getPhone()).child("Food").child(childDataSnapshot.getKey()).setValue("order");
                                     }
                                 }
-
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
                                 }
@@ -101,7 +96,6 @@ public class OrderActivity extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                     }
                 });
-
             }
         });
     }
